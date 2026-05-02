@@ -1,0 +1,27 @@
+{% extends 'tasksystem/base.html' %}
+
+{% block content %}
+
+<h1>{{ project.name }}</h1>
+
+<p>{{ project.description }}</p>
+
+<a href="/project/{{ project.id }}/create-task/" class="btn">
+    Create Task
+</a>
+
+<hr>
+
+<h2>Tasks</h2>
+
+{% for task in tasks %}
+<div class="task-box">
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+    <p>Assigned To: {{ task.assigned_to.username }}</p>
+    <p>Status: {{ task.status }}</p>
+    <p>Due: {{ task.due_date }}</p>
+</div>
+{% endfor %}
+
+{% endblock %}

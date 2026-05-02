@@ -1,0 +1,131 @@
+{% extends 'tasksystem/base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+        <h1>Create Project</h1>
+
+        <p>
+            Create a new project, add details, and assign team members.
+        </p>
+    </div>
+
+</div>
+
+<div class="form-page-wrapper">
+
+    <div class="form-card">
+
+        <form method="POST" class="project-form">
+
+            {% csrf_token %}
+
+            <!-- =========================
+                 PROJECT NAME
+            ========================= -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Project Name
+                </label>
+
+                <input 
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    placeholder="Enter project name"
+                    required
+                >
+
+            </div>
+
+            <!-- =========================
+                 DESCRIPTION
+            ========================= -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Project Description
+                </label>
+
+                <textarea 
+                    name="description"
+                    class="form-control"
+                    placeholder="Write project description..."
+                ></textarea>
+
+            </div>
+
+            <!-- =========================
+                 MEMBERS
+            ========================= -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Select Team Members
+                </label>
+
+                <div class="member-selection-grid">
+
+                    {% for user in users %}
+
+                    <label class="member-card">
+
+                        <div class="member-left">
+
+                            <input 
+                                type="checkbox"
+                                name="members"
+                                value="{{ user.id }}"
+                            >
+
+                            <div class="member-avatar">
+                                {{ user.username|slice:":1"|upper }}
+                            </div>
+
+                            <div class="member-info">
+
+                                <span class="member-name">
+                                    {{ user.username }}
+                                </span>
+
+                                <span class="member-role">
+                                    Team Member
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 BUTTON
+            ========================= -->
+
+            <div class="form-actions">
+
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Create Project
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

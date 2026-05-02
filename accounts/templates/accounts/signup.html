@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body class="login-body">
+
+<div class="auth-wrapper">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            <h1>Create Account</h1>
+            <p>Join your team and manage tasks professionally</p>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-error">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label class="form-label">Username</label>
+
+                <input 
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    placeholder="Enter username"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+
+                <input 
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Enter email address"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+
+                <input 
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Create password"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Select Role</label>
+
+                <select name="role" class="form-control">
+
+                    <option value="Admin">
+                        Admin
+                    </option>
+
+                    <option value="Member">
+                        Member
+                    </option>
+
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+            Already have an account?
+            <a href="/login/">Login</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'tasksystem/base.html' %}
+
+{% block content %}
+
+<h1>Update Task Status</h1>
+
+<form method="POST" class="main-form">
+    {% csrf_token %}
+
+    <select name="status">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <button type="submit">Update</button>
+</form>
+
+{% endblock %}

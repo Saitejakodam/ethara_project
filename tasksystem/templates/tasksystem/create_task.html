@@ -1,0 +1,151 @@
+{% extends 'tasksystem/base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+        <h1>Create Task</h1>
+
+        <p>
+            Assign a task to your team members and track progress efficiently.
+        </p>
+    </div>
+
+</div>
+
+<div class="form-page-wrapper">
+
+    <div class="form-card">
+
+        <form method="POST" class="project-form">
+
+            {% csrf_token %}
+
+            <!-- =========================
+                 TASK TITLE
+            ========================= -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Task Title
+                </label>
+
+                <input 
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter task title"
+                    required
+                >
+
+            </div>
+
+            <!-- =========================
+                 DESCRIPTION
+            ========================= -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Task Description
+                </label>
+
+                <textarea 
+                    name="description"
+                    class="form-control"
+                    placeholder="Write task details..."
+                ></textarea>
+
+            </div>
+
+            <!-- =========================
+                 ASSIGN MEMBER
+            ========================= -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Assign To
+                </label>
+
+                <div class="member-selection-grid">
+
+                    {% for member in members %}
+
+                    <label class="member-card">
+
+                        <div class="member-left">
+
+                            <input 
+                                type="radio"
+                                name="assigned_to"
+                                value="{{ member.id }}"
+                                required
+                            >
+
+                            <div class="member-avatar">
+                                {{ member.username|slice:":1"|upper }}
+                            </div>
+
+                            <div class="member-info">
+
+                                <span class="member-name">
+                                    {{ member.username }}
+                                </span>
+
+                                <span class="member-role">
+                                    Team Member
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 DUE DATE
+            ========================= -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Due Date
+                </label>
+
+                <input 
+                    type="date"
+                    name="due_date"
+                    class="form-control"
+                    required
+                >
+
+            </div>
+
+            <!-- =========================
+                 ACTION BUTTON
+            ========================= -->
+
+            <div class="form-actions">
+
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Create Task
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

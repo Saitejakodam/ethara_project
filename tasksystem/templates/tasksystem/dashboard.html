@@ -1,0 +1,280 @@
+{% extends 'tasksystem/base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+        <h1>Dashboard</h1>
+        <p>
+            Track projects, monitor tasks, and manage your team efficiently.
+        </p>
+    </div>
+
+    <div class="page-header-actions">
+        <a href="/create-project/" class="btn btn-primary">
+            + Create Project
+        </a>
+    </div>
+
+</div>
+
+<!-- =========================
+     DASHBOARD STATS
+========================= -->
+
+<div class="stats-grid">
+
+    <div class="stat-card teal">
+        <div class="stat-number">
+            {{ projects|length }}
+        </div>
+
+        <div class="stat-label">
+            Total Projects
+        </div>
+    </div>
+
+    <div class="stat-card amber">
+        <div class="stat-number">
+            {{ my_tasks|length }}
+        </div>
+
+        <div class="stat-label">
+            My Tasks
+        </div>
+    </div>
+
+    <div class="stat-card red">
+        <div class="stat-number">
+            {{ overdue_tasks|length }}
+        </div>
+
+        <div class="stat-label">
+            Overdue Tasks
+        </div>
+    </div>
+
+</div>
+
+<!-- =========================
+     MAIN DASHBOARD GRID
+========================= -->
+
+<div class="dashboard-layout">
+
+    <!-- =========================
+         PROJECTS SECTION
+    ========================= -->
+
+    <div class="dashboard-section">
+
+        <div class="section-header">
+            <h2>Projects</h2>
+        </div>
+
+        {% if projects %}
+
+        <div class="project-grid">
+
+            {% for project in projects %}
+
+            <div class="project-card">
+
+                <div class="project-card-header">
+
+                    <div>
+                        <h3 class="project-name">
+                            {{ project.name }}
+                        </h3>
+
+                        <p class="project-desc">
+                            {{ project.description }}
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="progress-bar-wrap">
+
+                    <div class="progress-bar-label">
+                        <span>Progress</span>
+                        <span>70%</span>
+                    </div>
+
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" style="width:70%;"></div>
+                    </div>
+
+                </div>
+
+                <div class="project-footer">
+
+                    <span class="badge badge-progress">
+                        Active
+                    </span>
+
+                    <a href="/project/{{ project.id }}/"
+                       class="btn btn-sm btn-primary">
+                        Open
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <div class="empty-state-icon">📁</div>
+
+            <h3>No Projects Found</h3>
+
+            <p>
+                Start by creating your first project.
+            </p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- =========================
+         MY TASKS SECTION
+    ========================= -->
+
+    <div class="dashboard-section">
+
+        <div class="section-header">
+            <h2>My Tasks</h2>
+        </div>
+
+        {% if my_tasks %}
+
+        <div class="task-list">
+
+            {% for task in my_tasks %}
+
+            <div class="task-item">
+
+                <div class="task-content">
+
+                    <h3 class="task-title">
+                        {{ task.title }}
+                    </h3>
+
+                    <div class="task-meta">
+
+                        {% if task.status == "Completed" %}
+                        <span class="badge badge-done">
+                            Completed
+                        </span>
+
+                        {% elif task.status == "In Progress" %}
+                        <span class="badge badge-progress">
+                            In Progress
+                        </span>
+
+                        {% else %}
+                        <span class="badge badge-todo">
+                            Pending
+                        </span>
+                        {% endif %}
+
+                        <span>
+                            Due: {{ task.due_date }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <div class="empty-state-icon">✅</div>
+
+            <h3>No Tasks Assigned</h3>
+
+            <p>
+                Your assigned tasks will appear here.
+            </p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- =========================
+         OVERDUE TASKS
+    ========================= -->
+
+    <div class="dashboard-section">
+
+        <div class="section-header">
+            <h2>Overdue Tasks</h2>
+        </div>
+
+        {% if overdue_tasks %}
+
+        <div class="task-list">
+
+            {% for task in overdue_tasks %}
+
+            <div class="task-item">
+
+                <div class="task-content">
+
+                    <h3 class="task-title">
+                        {{ task.title }}
+                    </h3>
+
+                    <div class="task-meta">
+
+                        <span class="badge badge-overdue">
+                            Overdue
+                        </span>
+
+                        <span>
+                            Due: {{ task.due_date }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <div class="empty-state-icon">🎉</div>
+
+            <h3>No Overdue Tasks</h3>
+
+            <p>
+                Great job! Everything is on schedule.
+            </p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

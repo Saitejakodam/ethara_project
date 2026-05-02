@@ -1,0 +1,22 @@
+Django
+gunicorn
+whitenoise
+dj-database-url
+psycopg2-binary
+
+# If using MySQL locally
+mysqlclient
+
+# If using APIs
+djangorestframework
+
+# If using Google login
+django-allauth
+
+# If using Redis cache
+django-redis
+
+# Optional utilities
+python-dotenv
+requests
+Pillow
